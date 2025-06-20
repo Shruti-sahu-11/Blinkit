@@ -1,9 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { DeleteItem } from '../features/cartSlice';
+import bin from '../assets/garbage.png';
+
+
 
 const cart = () => {
 
   const cartValues = useSelector((state) => state.CartValue.cartItems);
+  const dispatch = useDispatch();
 
   return (
     <div className='w-full max-w-md bg-gray-100 m-4 p-4 sm:px-6 shadow-lg rounded-lg mx-auto'>
@@ -25,6 +30,15 @@ const cart = () => {
           </div>
           <div className='flex flex-col items-center sm:items-end'>
             <p className='text-green-600 font-semibold'>₹{value.price}</p>
+            <p onClick={() => {dispatch(DeleteItem(value));
+
+            }} className='text-red-600 text-lg hover:cursor-pointer'
+            >
+              
+              <img src={ bin } className='w-67 h-6' />
+
+
+            </p>
             <div className='flex items-center mt-2 border rounded p-1 overflow-hidden'>
               <span>QTY:{value.quantity}</span>
             </div>
