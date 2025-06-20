@@ -4,8 +4,11 @@ import Login from './pages/Login';
 import Navbar from "./pages/Navbar";
 import Reg from './pages/Reg';
 import HomePage from './pages/HomePage';
-import Cart from './pages/cart';
+import Cart from './pages/Cart';
 import Footer from './pages/Footer';
+import Categories from './pages/Categories';
+import Offer from './pages/Offer';
+import Contact from './pages/Contact';
 
 const App = () => {
   return (
@@ -18,6 +21,9 @@ const App = () => {
     <Route path="/reg" element={<Reg />} />
     <Route path="/home" element={<HomePage />} />
     <Route path="/cart" element={<Cart />} />
+    <Route path="/categories" element={<Categories />} />
+    <Route path="/offer" element={<Offer />} />
+    <Route path="/contact" element={<Contact />} />
   </Routes>
   <Footer /> 
 </BrowserRouter>
