@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../assets/blinkit.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import cart from "../assets/basket.png";
 
 const Navbar = () => {
 
@@ -29,6 +30,7 @@ const Navbar = () => {
         {/*Login & cart  */}
 
               <div className="flex items-center gap-4">
+                <img src={cart} alt="cart logo" className="h-8 w-8" />
                 <Link to={"/cart"} className="relative text-gray-700 font-semibold hover:text-green-600">Cart {cartNumbers.length===0?"0":cartNumbers.length}</Link>
                 <Link to={"/"} className="px-4 py-2 bg-green-500 text-white rounded font-bold  hover:bg-green-700">Login</Link>
               </div>    

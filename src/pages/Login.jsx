@@ -1,16 +1,45 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+
+  const navigate = useNavigate();
+
+  function handleForm(e){
+    e.preventDefault();
+    //console.log(email, pass);
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const verifyUser = users.find(
+      (user)=>user.UserEmail === email && user.UserPass === pass
+    );
+
+    if(verifyUser){
+      toast.success("Successfully login");
+      navigate("/home");
+    }else{
+      toast.error("Invalid credentials");
+    }
+  }
+
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-100 '>
         <div className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>
             <h2 className='text-3xl text-center font-bold text-green-500'>Login</h2>
-            <form action="">
+            <form action="" onSubmit={handleForm}>
                 <div className='mb-4'>
                   <label htmlFor="" className="block mb-1 font-semibold text-sm">Email</label>
                   <input type="email" 
                   name="email"
+                  value={email}
+                  onChange={(e)=>{setEmail(e.target.value);
+
+                  }}
                   placeholder='Enter your email...' 
                   id="email" className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500" 
                   />
@@ -19,6 +48,10 @@ const Login = () => {
                   <label htmlFor="" className="block mb-1 font-semibold text-sm">Password</label>
                   <input type="password" 
                   name="password"
+                  value={pass}
+                  onChange={(e)=>{setPass(e.target.value);
+
+                  }}
                   placeholder='Enter your password...' 
                   id="password" className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500" 
                   />

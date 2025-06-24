@@ -1,19 +1,35 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DeleteItem } from '../features/cartSlice';
+import { CartTotal, DeleteItem } from '../features/cartSlice';
 import bin from '../assets/garbage.png';
+             
+import { Link } from "react-router-dom";
 
 
 
 const cart = () => {
 
   const cartValues = useSelector((state) => state.CartValue.cartItems);
+  const cartTotal = useSelector((state) => state.CartValue);
   const dispatch = useDispatch();
+
+  dispatch(CartTotal());
 
   return (
     <div className='w-full max-w-md bg-gray-100 m-4 p-4 sm:px-6 shadow-lg rounded-lg mx-auto'>
         <h1 className='text-lg font-bold mb-4 text-center'>Your Cart</h1>
-        <div className='space-y-4'>
+    
+        {
+          cartValues.length === 0 
+          ? 
+          <div className='text-center'>
+          <p className='text-xl text-red-500'>No cart products</p> 
+          <Link to={"/home"} className='text-sm text-blue-600'>
+             Continue Shopping
+          </Link>
+          </div>
+          :
+          <div className='space-y-4'>
           {/* Cart items */}
 
           {
@@ -47,18 +63,26 @@ const cart = () => {
         </div>
             ))}
        
-      
+            <div className='mt-6 pt-4'>
+              <div className='flex justify-between font-semibold text-lg mb-2 '>
+                <span>Total Products</span>
+                <span>{cartTotal.QuantityTotal}</span>
+              </div>
+            </div>
 
             <div className='mt-6 pt-4'>
               <div className='flex justify-between font-semibold text-lg mb-2 '>
                 <span>Total Price</span>
-                <span>₹250</span>
+                <span>₹{cartTotal.PriceTotal}</span>
               </div>
             </div>
             <button className='w-full bg-green-500 hover:bg-green-800 transition text-white py-3 rounded-lg font-semibold text-lg'>
               Proceed to Checkout
             </button>
         </div>
+
+        }
+        
     </div>
   );
 };
